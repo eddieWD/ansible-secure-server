@@ -68,10 +68,5 @@
     #- geerlingguy.pip
     #    - geerlingguy.docker
 ###
-- name: setup wordpress/db containers
-  hosts: local
-  gather_facts: true
-  tags: containers
 
-  tasks:
-    - include_task: wordpress.yml
+
