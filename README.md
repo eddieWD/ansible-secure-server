@@ -1,4 +1,4 @@
-# Configuring WD website on Digital Ocean droplet
+# Configuring WD server on Digital Ocean droplet
 
 ## Overview
 We created a Digital Ocean cloud server to host a tailscale exit node. THis project leverages ansible to automatically configure and secure the server.
@@ -15,9 +15,9 @@ We created a Digital Ocean cloud server to host a tailscale exit node. THis proj
 5. install git
     `apt install -y git`
 6. pull down the git repo from bitbucket
-    `git clone https://EddieWD@bitbucket.org/EddieWD/ansible-wordpressdroplet.git`
+    `git clone https://github.com/eddieWD/ansible-secure-server.git`
 7. change to the repo directory
-    `cd ansible-wordpressdroplet`
+    `cd ansible-secure-server`
 8. change permissions on the bootstrap script
     `chmod +x bootstrap.sh`
 9. run the bootstrap script
