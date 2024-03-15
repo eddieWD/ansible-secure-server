@@ -1,0 +1,77 @@
+---
+- name: update os / install basic software
+  hosts: all
+  become: true
+  tags: initialsetup
+
+  tasks:
+  - name: updating packages
+    tags: update
+    apt:
+      update_cache: true
+      upgrade: dist
+  - name: install some basic packages
+    tags: initialsetup
+    apt:
+      name:
+      - git
+      - neovim
+      - ranger
+      - htop
+      - ncdu
+      - neofetch
+      state: latest
+      cache_valid_time: 3600
+
+- name: add nonroot user (wdadmin)
+  hosts: all
+  become: true
+  tags: initialsetup
+
+  tasks:
+    - name: add wdadmin user
+      user:
+        name: wdadmin
+        state: present
+        shell: /usr/bin/bash
+        password: "$6$vd7kgD/HB$CKz037IcEcW0lKbJLTft5Aa4tZTuNv1fhqVoUmsqFr0ty9wXih1caA9RwYfz0aYCt3Eu3rne.9vDQ5m3Z.pKu."
+    - name: add ssh public key for wdadmin
+      authorized_key:
+        user: wdadmin
+        key: "{{ lookup('file', 'eleblanc.pub') }}"
+
+
+- name: secure server
+  hosts: local
+  become: true
+  gather_facts: true
+  tags: initialsetup
+
+  vars:
+    security_autoupdate_reboot: true
+    security_autoupdate_mail_to: "it@wd.cpa"
+    security_autoupdate_mail_on_error: true
+    security_ssh_port: 2202
+    security_sudoers_passworded:
+      - wdadmin
+    ntp_timezone: America/Chicago
+    firewall_disable_ufw: true
+    firewall_allowed_tcp_ports:
+      - "2202"
+      - "443"
+      - "80"
+
+  roles:
+    - geerlingguy.security
+    - geerlingguy.ntp
+    - geerlingguy.firewall
+    #- geerlingguy.pip
+    #    - geerlingguy.docker
+###
+- name: setup wordpress/db containers
+  hosts: local
+  gather_facts: true
+  tags: containers
+
+  tasks:
+    - include_task: wordpress.yml

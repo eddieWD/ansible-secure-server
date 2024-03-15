@@ -1,0 +1,7 @@
+---
+roles:
+  - geerlingguy.ntp
+  - geerlingguy.security
+  - geerlingguy.firewall
+  #- geerlingguy.docker
+  #- geerlingguy.pip
