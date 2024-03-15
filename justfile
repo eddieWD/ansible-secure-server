@@ -9,7 +9,7 @@ export JUST_LOG := log
 reqs *FORCE:
   ansible-galaxy install -r requirements.yml {{FORCE}}
 
-main *HOST *TAGS:
+main:
   ansible-playbook -b ./main.yml
 
 update HOST *TAGS:
