@@ -28,17 +28,17 @@ We created a Digital Ocean cloud server to host a tailscale exit node. THis proj
 ## Ansible tasks explaination
 1. update the package cache and OS
 2. add wdadmin user
-    a. create home dir
-    c. setup password
-    d. add provided ssh public key for wdadmin
+    1. create home dir
+    2. setup password
+    3. add provided ssh public key for wdadmin
 3. secure the server with ansible roles
-    a. enable auto updating security packages
+    1. enable auto updating security packages   
         1. email it@wd.cpa about errors updating
-    b. secure ssh server
+    2. secure ssh server
         1. change ssh port to 2202
-    c. set ntp timezone (America/Chicago.
-    d. enable firewall
+    3. set ntp timezone (America/Chicago.
+    4. enable firewall
         1. allow port 2202 for ssh
         2. block everything else
-    e. enable and config fail2ban to dynamically block logins over ssh
+    5. enable and config fail2ban to dynamically block logins over ssh
 
